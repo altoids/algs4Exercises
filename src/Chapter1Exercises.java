@@ -2,11 +2,12 @@
 public class Chapter1Exercises {
 
 	public int maxIntToLog(int N){
-		if (N <= 0) return 0;
+		if (N <= 1) return 0;
 		int result = 0;
-		for (result = 0; result * result <= N; result++){}
+		int initial = 2;
+		for (result = 2; initial <= N; result++){initial = 2 * initial;}
 		
-		return result == 0? 0: result -1;
+		return result == 0? 0: result -2;
 		
 	}
 	public static void main(String[] args) {
@@ -19,8 +20,8 @@ public class Chapter1Exercises {
 		System.out.println(ce1.maxIntToLog(1));
 		System.out.println(ce1.maxIntToLog(2));
 		System.out.println(ce1.maxIntToLog(4));
-		System.out.println(ce1.maxIntToLog(1024));
-		System.out.println(ce1.maxIntToLog(1024*1024));
+		System.out.println(ce1.maxIntToLog(1024*5));
+		System.out.println(ce1.maxIntToLog(1024*1024+3));
 
 	}
 

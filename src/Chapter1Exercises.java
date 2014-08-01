@@ -4,10 +4,10 @@ public class Chapter1Exercises {
 	public int maxIntToLog(int N){
 		if (N <= 1) return 0;
 		int result = 0;
-		int initial = 2;
-		for (result = 2; initial <= N; result++){initial = 2 * initial;}
+		int powof2 = 4;
+		for (result = 2; powof2 <= N; result++){powof2 = 2 * powof2;}
 		
-		return result == 0? 0: result -2;
+		return result == 0? 0: result -1;
 		
 	}
 	public static void main(String[] args) {

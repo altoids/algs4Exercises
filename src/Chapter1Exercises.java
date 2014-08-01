@@ -1,6 +1,7 @@
 
 public class Chapter1Exercises {
 
+	//1.1.14
 	public int maxIntToLog(int N){
 		if (N <= 1) return 0;
 		int result = 0;

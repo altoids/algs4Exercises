@@ -65,11 +65,32 @@ public class Chapter1Exercises {
 	
 	//1.1.31
 	public void randomConn(int N, double p){
+		double cx = 512.0;
+		double cy = 512.0;
+		double r = 500.0;
 		StdDraw.setXscale(0, 1024);
 		StdDraw.setYscale(0, 1024);
 		StdDraw.setPenColor(Color.BLACK);
-		StdDraw.circle(512.0, 512.0, 400.0);
+		StdDraw.circle(cx, cy, r);
 		StdDraw.show();	
+		StdDraw.setPenRadius(0.005);
+		double x = 0.0;
+		double y = 0.0;
+		double x1 = 0.0;
+		double y1 = 0.0;
+		for (double a = 0.0; a <= 2 * Math.PI; a += 2 * Math.PI/N){
+			x = cx + r * Math.cos(a);
+			y = cy + r * Math.sin(a);
+			x1 = cx + r * Math.cos(Math.PI + a);
+			y1 = cy + r * Math.sin(Math.PI + a);
+			StdDraw.setPenColor(Color.BLACK);
+			StdDraw.point(x, y);
+			StdDraw.point(x1, y1);
+			if (StdRandom.bernoulli(p)){
+				StdDraw.setPenColor(Color.GRAY);
+				StdDraw.line(x, y, x1, y1);
+			}
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -107,7 +128,7 @@ public class Chapter1Exercises {
 		
 		// 1.1.31
 		System.out.println("1.1.31");
-		ce1.randomConn(100, 0.01);
+		ce1.randomConn(100, 0.1);
 	}
 	
 	private void printArray(int[] a){

@@ -68,12 +68,13 @@ public class Chapter1Exercises {
 		double cx = 512.0;
 		double cy = 512.0;
 		double r = 500.0;
-		StdDraw.setXscale(0, 1024);
-		StdDraw.setYscale(0, 1024);
-		StdDraw.setPenColor(Color.BLACK);
-		StdDraw.circle(cx, cy, r);
-		StdDraw.show();	
-		StdDraw.setPenRadius(0.005);
+		Draw d = new Draw();
+		d.setXscale(0, 1024);
+		d.setYscale(0, 1024);
+		d.setPenColor(Color.BLACK);
+		d.circle(cx, cy, r);
+		d.show();	
+		d.setPenRadius(0.005);
 		double x = 0.0;
 		double y = 0.0;
 		double x1 = 0.0;
@@ -83,13 +84,36 @@ public class Chapter1Exercises {
 			y = cy + r * Math.sin(a);
 			x1 = cx + r * Math.cos(Math.PI + a);
 			y1 = cy + r * Math.sin(Math.PI + a);
-			StdDraw.setPenColor(Color.BLACK);
-			StdDraw.point(x, y);
-			StdDraw.point(x1, y1);
+			d.setPenColor(Color.BLACK);
+			d.point(x, y);
+			d.point(x1, y1);
 			if (StdRandom.bernoulli(p)){
-				StdDraw.setPenColor(Color.GRAY);
-				StdDraw.line(x, y, x1, y1);
+				d.setPenColor(Color.GRAY);
+				d.line(x, y, x1, y1);
 			}
+		}
+	}
+	
+	//1.1.33
+	public double dot(double[] x, double[] y){
+		if (x.length != y.length)
+			return 0.0;
+		double result = 0.0;
+		for (int i = 0; i < x.length; i++){
+			result += x[i] * y[i];
+		}
+		return result;
+	}
+	
+	// 1.1.36
+	// key is to keep the random range at [i, N]
+	public void shuffle(double[] a){
+		int N = a.length;
+		for (int i = 0; i < N; i++){
+			int r = i + StdRandom.uniform(N-i);
+			double temp = a[i];
+			a[i] = a[r];
+			a[r] = temp;
 		}
 	}
 	
@@ -128,7 +152,9 @@ public class Chapter1Exercises {
 		
 		// 1.1.31
 		System.out.println("1.1.31");
-		ce1.randomConn(100, 0.1);
+		ce1.randomConn(1000, 0.01);
+		
+
 	}
 	
 	private void printArray(int[] a){

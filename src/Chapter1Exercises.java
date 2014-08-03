@@ -1,6 +1,8 @@
 import java.awt.Color;
+import java.util.Arrays;
 import java.util.Random;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 public class Chapter1Exercises {
 
@@ -117,9 +119,124 @@ public class Chapter1Exercises {
 		}
 	}
 	
+	//1.2.1
+		public class Point implements Comparable<Point>{
+			private double x;
+			private double y;
+			private Point(double inX, double inY){
+				this.x = inX;
+				this.y = inY;
+			}
+			
+			public int compareTo(Point that){
+				if (this.x > that.x || this.y > that.y)
+					return 1;
+				else if (this.x == that.x && this.y == that.y)
+					return 0;
+				else return -1;
+			}
+		}
+		public void drawClosestDistance(int N){
+			// generate N random points
+			Point[] points = new Point[N];
+			for (int i = 0; i<N; i++){
+				points[i] = new Point(StdRandom.uniform(), StdRandom.uniform());
+			}
+			//calculate and store distrances
+			double[][] distances = new double[N][N];
+			for (int i = 0; i < N; i++){
+				for (int j = 0; j < N; j++){
+					distances[i][j] = Math.pow(points[i].x-points[j].x, 2) + Math.pow(points[i].y-points[j].y, 2); 
+					distances[j][i] = distances[i][j];
+					
+				}
+			}
+			Draw d = new Draw();
+			d.setXscale();
+			d.setYscale();
+			d.show();
+			for (int i = 0; i< N; i++){
+				int minj = 0;
+				for (int j = 0; j < N; j++){
+					if (distances[i][minj] > distances[i][j] && i != j)
+						minj = j;
+				}
+				//point i to point minj draw a line
+				d.line(points[i].x, points[i].y, points[minj].x, points[minj].y);
+			}
+		}
+
+		// 1.2.2 interval1d
+		public class Interval implements Comparable<Interval>{
+			public double start;
+			public double end;
+			
+			public Interval(double start, double end){
+				this.start = start;
+				this.end = end;
+			}
+			public int compareTo(Interval that){
+				if (this.start - that.start > 0.0)
+					return 1;
+				else if (this.start - that.start < 0.0)
+					return -1;
+				else return 0;
+			}
+			
+			public String toString(){
+				return "(" + start + "," + end + ")";
+			}
+		}
+		
+		public void Interval1DSearch(int N){
+			// generate N random intervals
+			Interval[] intervals = new Interval[N];
+			Draw d = new Draw();
+			d.setXscale(0,1);
+			d.setYscale(0,1);
+			d.show();
+			for (int i = 0; i< N; i++){
+				double start = StdRandom.uniform();
+				intervals[i] = new Interval(start,StdRandom.uniform(start,1));
+			}
+			
+			//sort the intervals according to starting point
+			Arrays.sort(intervals);
+			
+			//for each interval i, do a range search in the sorted interval array between i.start and i.end
+			for (int i = 0; i< N; i++){
+				d.line(intervals[i].start, (1/(double)N)*i, intervals[i].end, (1/(double)N)*i);
+				double currentend = intervals[i].end;
+				int j = i+1;
+				while (j < N && intervals[j].start <= currentend) j++;
+				System.out.print(intervals[i] + ";");
+				for (int k = i + 1; k<j; k++)
+					System.out.print(intervals[k] + ";");
+				System.out.println("");
+			}
+		}
+		
+		public boolean isCircular(String a, String b){
+			String temp = "";
+			if (a.length() != b.length() || a.isEmpty() || b.isEmpty())
+				return false;
+			for (int i = 0; i< a.length(); i++){
+				int bindex = b.indexOf(a.charAt(i));
+				while (bindex != -1){
+					temp = b.substring(bindex) + b.substring(0, bindex);
+					if (a.equals(temp))
+						return true;
+					else
+						bindex = b.indexOf(a.charAt(i), bindex + 1);
+				}
+			}
+			return false;
+		}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Chapter1Exercises ce1 = new Chapter1Exercises();
+		/*
 		// tests for maxIntToLog
 		System.out.println("1.1.14 tests");
 		System.out.println(ce1.maxIntToLog(-1));
@@ -153,8 +270,36 @@ public class Chapter1Exercises {
 		// 1.1.31
 		System.out.println("1.1.31");
 		ce1.randomConn(1000, 0.01);
+		*/
 		
-
+		// 1.2.1
+		//ce1.drawClosestDistance(15000);
+		
+		// 1.2.2
+		//ce1.Interval1DSearch(50);
+		
+		// 1.2.4
+		/*String string1 = "hello";
+		String string2 = string1;
+		string1 = "world";
+		StdOut.println(string1);
+		StdOut.println(string2);
+		*/
+		
+		// 1.2.5
+		/*String s = "Hello World";
+		s.toUpperCase();
+		s.substring(6, 11);
+		StdOut.println(s);
+		*/
+		
+		// 1.2.6
+		String a = "ACTGACG";
+		String b = "TGACGAC";
+		System.out.println(a);
+		System.out.println(b);
+		System.out.println(ce1.isCircular(a, b));
+		
 	}
 	
 	private void printArray(int[] a){

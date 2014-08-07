@@ -294,11 +294,16 @@ public class Chapter1Exercises {
 		*/
 		
 		// 1.2.6
-		String a = "ACTGACG";
+		/*String a = "ACTGACG";
 		String b = "TGACGAC";
 		System.out.println(a);
 		System.out.println(b);
 		System.out.println(ce1.isCircular(a, b));
+		*/
+		
+		// 1.2.7
+		// return string reversed.
+		
 		
 	}
 	
